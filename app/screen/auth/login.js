@@ -19,6 +19,12 @@ const Login = () => {
     const submit = (values, formikProps) => {
         dispatch(loginUser(values));
     }
+
+    useEffect(() => {
+        console.log(user)
+        console.log(error)
+        console.log(loading)
+    }, [error, loading])
     return (
         <UnauthorizedLayout>
             <View style={styles.container}>

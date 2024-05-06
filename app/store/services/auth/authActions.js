@@ -19,12 +19,12 @@ export const loginUser = createAsyncThunk(
         body: formData,
       })
       const loginUser = await data.json()
-      console.log(loginUser)
-      await AsyncStorage.setItem('token', loginUser.token);
-      await AsyncStorage.setItem('user', JSON.stringify(loginUser.user));
+      if (loginUser.token){
+        await AsyncStorage.setItem('token', loginUser.token);
+        await AsyncStorage.setItem('user', JSON.stringify(loginUser.user));
+      }
       return loginUser;
     }catch (error) {
-      console.log(error)
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message)
       } else {

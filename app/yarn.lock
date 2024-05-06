@@ -1743,6 +1743,10 @@
   version "1.3.1"
   resolved "https://github.com/pusher/pusher-websocket-react-native#34b5b52cfaca1d1415f5c8d8d3a8f2be95143902"
 
+"@pusher/pusher-websocket-react-native@https://github.com/ringkubd/pusher-websocket-react-native":
+  version "1.3.0"
+  resolved "https://github.com/ringkubd/pusher-websocket-react-native#d2fe889a8da89228e5560075521929b2102ec926"
+
 "@react-native-async-storage/async-storage@1.21.0":
   version "1.21.0"
   resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.21.0.tgz#d7e370028e228ab84637016ceeb495878b7a44c8"
