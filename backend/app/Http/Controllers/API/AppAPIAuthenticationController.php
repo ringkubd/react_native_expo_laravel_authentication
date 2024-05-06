@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AppAPIAuthenticationController extends Controller
 {
@@ -25,7 +26,7 @@ class AppAPIAuthenticationController extends Controller
             ], 404);
         }
         if ($user && Hash::check($request->password, $user->password)){
-            $token = $user->createToken($user->first_name)->plainTextToken;
+            $token = $user->createToken($user->name)->plainTextToken;
             Auth::login($user);
             return response()->json([
                 'token' => $token,
@@ -45,6 +46,28 @@ class AppAPIAuthenticationController extends Controller
             'message' => 'Logged out'
         ]);
 
+    }
+
+    public function register(Request $request){
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+        if($validate->fails()){
+            return response()->json([
+                'message' => $validate->errors()
+            ], 422);
+        }
+        $user = User::create($validate->validated());
+        if ($user){
+            $token = $user->createToken($user->first_name)->plainTextToken;
+            Auth::login($user);
+            return response()->json([
+                'token' => $token,
+                'user' => new UserResource($user),
+            ]);
+        }
     }
 
 }

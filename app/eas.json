@@ -1,0 +1,14 @@
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
+  }
+}
