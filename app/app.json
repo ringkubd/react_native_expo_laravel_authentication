@@ -1,0 +1,14 @@
+{
+  "name": "gunma_pos",
+  "displayName": "gunma_pos",
+  "expo": {
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ]
+  }
+}
