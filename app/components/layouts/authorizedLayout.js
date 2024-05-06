@@ -20,20 +20,20 @@ const AuthorizedLayout = ({ props, style, children }) => {
     }, [loading, user, token]);
 
     return (
-        <View style={styles.container}>
-            {
-                !backgroundImage ? <Text>Loading</Text> : (
-                    <ImageBackground source={backgroundImage[0]} style={styles.background} >
-                        <View style={{flex: 1, backgroundColor: theme.colors.surface, opacity: .8}}>
-                            <View style={[{backgroundColor: theme.colors.primaryContainer}, styles.contentContainer]}>
-                                <Logo />
-                                {children}
-                            </View>
+      <View style={styles.container}>
+          {
+              !backgroundImage ? <Text>Loading</Text> : (
+                <ImageBackground source={backgroundImage[0]} style={styles.background} >
+                    <View style={{flex: 1, backgroundColor: theme.colors.surface, opacity: .8}}>
+                        <View style={[{backgroundColor: theme.colors.primaryContainer}, styles.contentContainer]}>
+                            <Logo />
+                            {children}
                         </View>
-                    </ImageBackground>
-                )
-            }
-        </View>
+                    </View>
+                </ImageBackground>
+              )
+          }
+      </View>
     )
 }
 export default AuthorizedLayout;

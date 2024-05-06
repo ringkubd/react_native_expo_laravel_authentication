@@ -6,8 +6,6 @@ import {useLogoutMutation} from "../store/services/auth/logoutAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {logoutReducer} from "../store/services/auth/authSlice";
 import {useNavigation} from "@react-navigation/native";
-import { useEffect } from "react";
-import { handleConnect } from "../soketi";
 
 const HomeScreen = () => {
     const loggedIn = useSelector(state => state.user);
@@ -20,10 +18,6 @@ const HomeScreen = () => {
         logout()
         await AsyncStorage.clear();
     }
-
-    useEffect(() => {
-      handleConnect();
-    }, [])
 
     return (
         <AuthorizedLayout>
