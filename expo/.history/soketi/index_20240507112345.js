@@ -21,7 +21,7 @@ export async function onAuthorizer(channelName, socketID) {
 
 const pusher = Pusher.getInstance();
 try {
-  pusher.init({
+  await pusher.init({
     apiKey: process.env.EXPO_PUBLIC_SOKETI_PUBLIC_KEY,
     onAuthorizer: (channelName, socketId) => console.log(channelName, socketId),
     host: process.env.EXPO_PUBLIC_SOKETI_HOST,
@@ -33,6 +33,7 @@ try {
       console.log('onError', e);
     },
   });
+  await pusher.connect();
 } catch(e) {
   console.log(e)
 }
