@@ -4,6 +4,9 @@ import {
   PusherAuthorizerResult,
 } from '@pusher/pusher-websocket-react-native';
 import axios from "axios";
+import { createContext } from "react";
+
+export const PusherContext = createContext(null);
 
 export async function onAuthorizer(channelName, socketID) {
   try {
@@ -23,15 +26,20 @@ const pusher = Pusher.getInstance();
 try {
   pusher.init({
     apiKey: process.env.EXPO_PUBLIC_SOKETI_PUBLIC_KEY,
-    onAuthorizer: (channelName, socketId) => console.log(channelName, socketId),
+    // onAuthorizer,
+    authEndPoint: process.env.EXPO_PUBLIC_SOKETI_PUBLIC_KEY+"/broadcasting/auth",
     host: process.env.EXPO_PUBLIC_SOKETI_HOST,
     cluster: 'mt1',
     onConnectionStateChange: e => {
       console.log('onConnectionStateChange', e);
     },
+    onSubscriptionSucceeded: (channelName, data) => console.log(channelName),
     onError: e => {
       console.log('onError', e);
     },
+    onEvent: function onEvent( event) {
+      console.log(`onEvent: ${event}`);
+    }
   });
 } catch(e) {
   console.log(e)

@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,16 +9,15 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
-class TestEvent implements ShouldBroadcast
+class PublicEventTest implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public User $user,)
+    public function __construct(public array $data)
     {
         //
     }
@@ -31,16 +29,13 @@ class TestEvent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        Log::info($this->user);
         return [
-            new Channel('test.1'),
+            new Channel('public-channel'),
         ];
     }
-    /**
-     * The event's broadcast name.
-     */
+
     public function broadcastAs(): string
     {
-        return 'test.event';
+        return 'public-event-test';
     }
 }

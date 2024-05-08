@@ -8,6 +8,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import Navigator from "./navigate/Navigator";
 import {useReduxDevTools} from "@dev-plugins/redux";
 import {useAsyncStorageDevTools} from "@dev-plugins/async-storage";
+import pusher, { PusherContext } from "./soketi";
 
 const theme = {
     ...DefaultTheme,
@@ -59,15 +60,17 @@ export default function App() {
     useReduxDevTools(store);
     useAsyncStorageDevTools()
     return (
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={perStore}>
-                <PaperProvider theme={theme}>
-                    <NavigationContainer>
-                        <Navigator />
-                    </NavigationContainer>
-                </PaperProvider>
-            </PersistGate>
-        </Provider>
+      <Provider store={store}>
+          <PersistGate loading={null} persistor={perStore}>
+              <PusherContext.Provider value={pusher}>
+                  <PaperProvider theme={theme}>
+                      <NavigationContainer>
+                          <Navigator />
+                      </NavigationContainer>
+                  </PaperProvider>
+              </PusherContext.Provider>
+          </PersistGate>
+      </Provider>
     );
 }
 

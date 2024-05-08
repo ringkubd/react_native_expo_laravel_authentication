@@ -6,10 +6,10 @@ import {useLogoutMutation} from "../store/services/auth/logoutAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {logoutReducer} from "../store/services/auth/authSlice";
 import {useNavigation} from "@react-navigation/native";
-import pusher from "../soketi";
+import { useSocket } from "../soketi/hook";
 
 const HomeScreen = () => {
-    const loggedIn = useSelector(state => state.user);
+    const loggedIn = useSelector(state => state.auth?.user);
     const [logout, {isLoading, isError, data, isSuccess}] = useLogoutMutation();
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -20,8 +20,11 @@ const HomeScreen = () => {
         await AsyncStorage.clear();
     }
 
-    pusher();
-
+    const socket = useSocket({
+        event: 'test.event',
+        callBack: (d) => console.log(d),
+        channel: 'test.1'
+    });
     return (
         <AuthorizedLayout>
             <Text>Home</Text>

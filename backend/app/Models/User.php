@@ -45,4 +45,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function chatRooms(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(ChatRoom::class, 'user_chat_room')
+            ->withPivot('last_read_message_id')
+            ->withTimestamps();
+    }
 }

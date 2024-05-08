@@ -11,6 +11,5 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/test_event', function () {
-    broadcast(new TestEvent(User::where('email', 'ajr.jahid@gmail.com')->first()));
-});
+Route::get('/test_event', [\App\Http\Controllers\TestEventController::class, 'index']);
+Route::get('/public_test_event', [\App\Http\Controllers\TestEventController::class, 'publicEvent']);

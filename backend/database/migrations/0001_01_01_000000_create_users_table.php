@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,7 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        \Illuminate\Support\Facades\Hash::make();
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -36,6 +36,19 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        if(Schema::hasTable('users')) {
+            \App\Models\User::create([
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('password'),
+            ]);
+            \App\Models\User::create([
+                'name' => 'Anwar',
+                'email' => 'ajr.jahid@gmail.com',
+                'password' => Hash::make('123456789'),
+            ]);
+        }
     }
 
     /**
